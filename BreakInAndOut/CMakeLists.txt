@@ -20,10 +20,9 @@ FetchContent_MakeAvailable(entt)
 
 # Add source to this project's executable.
 
-set(SOURCES
-  "main.cpp"
-)
-add_executable (BreakInAndOut SOURCES)
+set(SOURCES "src/main.cpp" "src/Scene.cpp" "src/Entity/Ball.cpp" "src/System/intergrate.cpp" "src/utils/math.cpp")
+add_executable (BreakInAndOut ${SOURCES})
+target_include_directories(BreakInAndOut PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(BreakInAndOut PRIVATE raylib)
 target_link_libraries(BreakInAndOut PRIVATE EnTT::EnTT)
 

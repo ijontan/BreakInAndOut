@@ -5,9 +5,13 @@
 
 Scene::Scene()
 {
-	for (int i = 0; i < 1000; i++)
+	for (size_t i = 0; i < 20; i++)
 	{
-		Entity::createBall(this, { Utils::random(0.0f, 1920.0f), Utils::random(0.0f, 1080.0f) }, { Utils::random(-5.0f, 5.0f), Utils::random(-5.0f, 5.0f)}, 10.0f);
+	Entity::createBall(this, { Utils::random(0.0f, 1920.0f), Utils::random(0.0f, 1080.0f) }, { Utils::random(-10.0f, 10.0f), Utils::random(-10.0f, 10.0f)}, 10.0f);
+	}
+	for (size_t i = 0; i < 20; i++)
+	{
+		Entity::createBlock(this, { Utils::random(0.0f, 1920.0f), Utils::random(0.0f, 1080.0f) }, { 100.0f, 50.0f }, WHITE);
 	}
 }
 
@@ -23,23 +27,14 @@ Entity::Entity Scene::createEntity()
 
 void Scene::render()
 {
-	integrate(this);
+	System::collision(this);
+	System::integrate(this);
 
 	BeginDrawing();
 
 	ClearBackground(BLACK);
 
-	
-
-	const auto view = registry.view<Component::Position, float>();
-
-	for (const auto& entity : view)
-	{
-		const Vector2& position = view.get<Component::Position>(entity);
-		const float radius = view.get<float>(entity);
-		DrawCircleV(position, radius, WHITE);
-	}
-
+	System::draw2D(this);
 
 	EndDrawing();
 }

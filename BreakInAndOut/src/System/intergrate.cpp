@@ -1,7 +1,6 @@
-
 #include "../../include/Systems.hpp"
 
-void integrate(Scene* scene)
+void System::integrate(Scene* scene)
 {
 	const auto view = scene->registry.view<Component::Position, Component::Velocity>();
 	const auto delta = GetFrameTime() * 60;

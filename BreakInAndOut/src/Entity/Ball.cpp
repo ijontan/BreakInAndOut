@@ -7,7 +7,7 @@ namespace Entity{
 		Entity ball = scene->createEntity();
 		ball.addComponent<Component::Position>(position);
 		ball.addComponent<Component::Velocity>(velocity);
-		ball.addComponent<float>(radius);
+		ball.addComponent<Component::CircleShape>(radius);
 		return ball;
 	}
 };

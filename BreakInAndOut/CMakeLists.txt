@@ -20,7 +20,7 @@ FetchContent_MakeAvailable(entt)
 
 # Add source to this project's executable.
 
-set(SOURCES "src/main.cpp" "src/Scene.cpp" "src/Entity/Ball.cpp" "src/System/intergrate.cpp" "src/utils/math.cpp" "src/System/Draw.cpp" "src/utils/collisionDetection.cpp" "src/System/collision.cpp" "src/Entity/Block.cpp")
+set(SOURCES "src/main.cpp" "src/Scene.cpp" "src/Entity/Ball.cpp" "src/System/intergrate.cpp" "src/utils/math.cpp" "src/System/Draw.cpp" "src/utils/collisionDetection.cpp" "src/System/collision.cpp" "src/Entity/Block.cpp" "src/Entity/Paddle.cpp" "src/System/paddleMovement.cpp"   "src/System/switchLayer.cpp" )
 add_executable (BreakInAndOut ${SOURCES})
 target_include_directories(BreakInAndOut PRIVATE ${CMAKE_SOURCE_DIR}/include)
 target_link_libraries(BreakInAndOut PRIVATE raylib)

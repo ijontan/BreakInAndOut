@@ -1,6 +1,7 @@
 #pragma once
 #include "entt/entt.hpp"
 #include "raylib.h"
+#include "Component/BlockState.hpp"
 
 namespace Entity {
 	struct Entity;
@@ -16,4 +17,5 @@ public:
 	void render();
 
 	entt::registry registry;
+	unsigned char mask = Component::GhostLayer::REAL | Component::GhostLayer::ONE;
 };

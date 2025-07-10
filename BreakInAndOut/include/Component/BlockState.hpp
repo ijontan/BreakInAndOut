@@ -23,10 +23,27 @@ namespace Component
 		SEVEN = 1 << 7,
 	};
 
-	struct Block
+	struct BlockState
 	{
 		BlockType type = NORMAL;
 		GhostLayer layer = REAL;
+		unsigned char targetOpacity = 255;
+		unsigned char startOpacity = 255;
+		float t = 1.0f;
 		int health = 1;
-	}
-}
+
+
+		BlockState(BlockType type, GhostLayer layer, int health = 1)
+			: type(type), layer(layer), targetOpacity(255), startOpacity(255), t(1.0f), health(health) {
+		}
+
+		void step(float deltaTime)
+		{
+			if (t < 1.0f)
+			{
+				t += deltaTime;
+				if (t > 1.0f) t = 1.0f;
+			}
+		}
+	};
+};

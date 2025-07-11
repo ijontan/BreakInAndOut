@@ -1,5 +1,10 @@
 #pragma once
 
+#include "../utils/bezier.hpp"
+#include "../utils/masking.hpp"
+
+#include <cmath>
+#include <algorithm>
 
 namespace Component
 {
@@ -44,6 +49,21 @@ namespace Component
 				t += deltaTime;
 				if (t > 1.0f) t = 1.0f;
 			}
+		}
+
+		void setColorTransition(unsigned char mask, unsigned char newStartOpacity)
+		{
+			startOpacity = newStartOpacity;
+			if (!Utils::isBitSet(mask, layer))
+			{
+				int layerIndex = Utils::getBitIndex(layer);
+				int selectedLayer = Utils::getBitIndex(Utils::clearBit(mask, Component::GhostLayer::REAL));
+				auto diff = std::abs(layerIndex - selectedLayer);
+				targetOpacity = std::clamp(70 - diff * 20, 0, 255);
+			}
+			else
+				targetOpacity = 255;
+			t = 0.0f;
 		}
 	};
 };

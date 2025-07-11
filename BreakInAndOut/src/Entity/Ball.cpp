@@ -1,5 +1,6 @@
 #include "../../include/Scene.hpp"
 #include "../../include/Entities.hpp"
+#include "../../include/Entity.hpp"
 
 namespace Entity{
 	Entity createBall(Scene* scene, Vector2 position, Vector2 velocity, float radius)

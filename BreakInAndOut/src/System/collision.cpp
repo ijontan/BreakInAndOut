@@ -30,6 +30,7 @@ static void damageBlock(Scene *scene, Component::BlockState& blockState, entt::e
 
 void System::collision(Scene* scene)
 {
+	// TODO:fix the hardcoded screen size
 	const auto width = GetScreenWidth();
 	const auto height = GetScreenHeight();
 

@@ -11,4 +11,10 @@ namespace Utils {
 	{
 		return min + static_cast<int>(std::rand()) / (static_cast<int>(RAND_MAX) / (max - min));
 	}
+
+	int snapToNearest(int value, int snap)
+	{
+		if (snap == 0) return value;
+		return ((value + snap / 2) / snap) * snap;
+	}
 }

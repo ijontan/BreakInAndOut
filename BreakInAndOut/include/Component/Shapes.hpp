@@ -5,7 +5,7 @@ namespace Component {
 	struct CircleShape
 	{
 		float radius;
-		Color color = RED;
+		Color color = WHITE;
 
 		void draw(const Vector2& position) const
 		{

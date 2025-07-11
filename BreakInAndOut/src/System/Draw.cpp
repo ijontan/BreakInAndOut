@@ -16,7 +16,7 @@ static void drawCircle(Scene* scene)
 
 static void drawRectangle(Scene* scene)
 {
-	const float stepTime = 1 / 0.1 * GetFrameTime();
+	const float stepTime = 1.0f / 0.1f * GetFrameTime();
 	const auto view = scene->registry.view<Component::Position, Component::RectangleShape, Component::BlockState>();
 	for (const auto& entity : view)
 	{
@@ -63,9 +63,45 @@ static void drawCollisionBox(Scene* scene)
 	}
 }
 
+static void drawText(Scene* scene)
+{
+	const auto view = scene->registry.view<Component::Text>();
+	for (const auto& entity : view)
+	{
+		const Component::Text& text = view.get<Component::Text>(entity);
+		text.draw();
+	}
+}
+
+static void drawContainer(Scene* scene)
+{
+	const auto view = scene->registry.view<Component::Container>();
+	for (const auto& entity : view)
+	{
+		const Component::Container& container = view.get<Component::Container>(entity);
+		container.draw();
+	}
+}
+
+static void drawHitBox(Scene* scene)
+{
+	const auto view = scene->registry.view<Component::MouseHitBox>();
+	for (const auto& entity : view)
+	{
+		const Component::MouseHitBox& hitBox = view.get<Component::MouseHitBox>(entity);
+		if (hitBox.isMouseOver())
+		{
+			DrawRectangleLinesEx({ hitBox.position.x, hitBox.position.y, hitBox.size.x, hitBox.size.y }, 2, RED);
+		}
+	}
+}
+
 void System::draw2D(Scene* scene)
 {
 	drawRectangle(scene);
 	drawCircle(scene);
+	drawContainer(scene);
+	drawHitBox(scene);
+	drawText(scene);
 	//drawCollisionBox(scene);
 }

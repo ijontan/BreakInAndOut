@@ -1,5 +1,5 @@
 #include "../../include/Entities.hpp"
-
+#include "../../include/Entity.hpp"
 
 namespace Entity {
 	Entity createPaddle(Scene* scene, Vector2 position, Vector2 size, Color color)

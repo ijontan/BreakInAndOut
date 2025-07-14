@@ -108,10 +108,6 @@ static void generateTutorialText(Scene* scene, const std::string& fileName)
 		text = "Let's try another one";
 	else if (fileName == "4")
 		text = "Use number key 1 - 7 to hit blocks in different dimension.";
-	else if (fileName == "5")
-		text = "Hmm.. how do I get there?";
-	else if (fileName == "6")
-		text = "You are on your own now.";
 
 	const Vector2 position = { 50.0f, 50.0f};
 	const Color color = WHITE;

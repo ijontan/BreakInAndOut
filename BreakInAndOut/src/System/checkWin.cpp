@@ -42,7 +42,7 @@ void System::checkWin(Scene* scene)
 			auto it = std::find(scene->storyLevelsOrders.begin(), scene->storyLevelsOrders.end(), scene->level->getName());
 			if (it != scene->storyLevelsOrders.end() && ++it != scene->storyLevelsOrders.end() )
 			{
-				scene->gotoLevel(*(++it), false);
+				scene->gotoLevel(*(it), false);
 			}
 			else
 			{

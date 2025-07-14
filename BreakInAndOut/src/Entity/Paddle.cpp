@@ -12,7 +12,8 @@ namespace Entity {
 		paddle.addComponent<Component::RectangleShape>(size, color);
 		paddle.addComponent<Component::CollisionBox>(size);
 		paddle.addComponent<Component::PaddleState>();
-		paddle.addComponent<Component::BlockState>(Component::BlockType::WALL, Component::GhostLayer::REAL);
+		paddle.addComponent<Component::BlockState>(Component::BlockType::WALL, Component::GhostLayer::REAL, Utils::Notes::C3);
+		paddle.addComponent<Component::Displacement>(position);
 		return paddle;
 	}
 };

@@ -2,6 +2,7 @@
 #include "entt/entt.hpp"
 #include "raylib.h"
 #include "Component/BlockState.hpp"
+#include "utils/Sounds.hpp"
 
 namespace Entity {
 	struct Entity;
@@ -9,6 +10,7 @@ namespace Entity {
 
 namespace Utils {
 	class Editor;
+	class Level;
 }
 
 class Scene
@@ -24,12 +26,18 @@ public:
 
 	unsigned char mask = Component::GhostLayer::REAL | Component::GhostLayer::ONE;
 	bool unloadingPage = false;
-	std::function<void()> loadPageCallBack = nullptr;
 	bool loadingPage = false;
+	bool shouldClose = false;
+	std::function<void()> loadPageCallBack = nullptr;
 	Utils::Editor* editor = nullptr;
+	Utils::Sounds sounds;
+	Utils::Level* level = nullptr;
+	float timeBeforeNextStage = 0.0f;
 
-private:
+	static const std::vector<std::string> storyLevelsOrders;
 	void gotoMenu();
-	void gotoEditor();
-	void gotoLevel(int level);
+	void gotoEditor(const std::string fileName);
+	void gotoLevel(const std::string fileName, bool isCustom);
+	void gotoCustoms();
+	void clean();
 };

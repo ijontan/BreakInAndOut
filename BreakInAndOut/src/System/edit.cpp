@@ -23,6 +23,7 @@ void System::edit(Scene* scene)
 			{
 				scene->editor->selectBlock(Entity::Entity(entity, scene));
 				found = true;
+				scene->sounds.playSound(blockState.hitSound);
 				break;
 			}
 		}

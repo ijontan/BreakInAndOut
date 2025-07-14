@@ -9,9 +9,10 @@ namespace Entity {
 		block.addComponent<Component::Position>(config.position);
 		block.addComponent<Component::RectangleShape>(config.size, config.color);
 		block.addComponent<Component::CollisionBox>(config.size);
-		Component::BlockState blockState(config.type, config.layer);
+		Component::BlockState blockState(config.type, config.layer, config.hitSound);
 		blockState.setColorTransition(scene->mask, 0);
 		block.addComponent<Component::BlockState>(blockState);
+		block.addComponent<Component::Displacement>(config.position);
 		return block;
 	}
 };

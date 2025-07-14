@@ -7,7 +7,9 @@ void System::handleMouseClick(Scene* scene)
 	{
 		if (scene->unloadingPage)
 			return;
-		const Component::MouseHitBox& hitBox = view.get<Component::MouseHitBox>(entity);
+		Component::MouseHitBox& hitBox = view.get<Component::MouseHitBox>(entity);
 		hitBox.checkClick();
+		hitBox.checkOnHoverEnter();
+		hitBox.checkOnHoverLeave();
 	}
 }

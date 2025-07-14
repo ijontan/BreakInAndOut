@@ -6,11 +6,13 @@
 #include "Component/CollisionBox.hpp"
 #include "Component/BlockState.hpp"
 #include "Component/PaddleState.hpp"
+#include "Component/Displacement.hpp"
 #include "Component/ui/MouseHitBox.hpp"
 #include "Component/ui/Text.hpp"
 #include "Component/ui/Container.hpp"
 #include "utils/masking.hpp"
 #include "utils/math.hpp"
+#include "utils/Sounds.hpp"
 #include <functional>
 
 
@@ -27,10 +29,11 @@ namespace Entity {
 		Color color = WHITE;
 		Component::BlockType type = Component::BlockType::NORMAL;
 		Component::GhostLayer layer = Component::GhostLayer::REAL;
+		Utils::Notes hitSound = Utils::Notes::C3;
 		int health = 1;
 		BlockConfig() = default;
-		BlockConfig(Vector2 position, Vector2 size, Color color, Component::BlockType type, Component::GhostLayer layer)
-			: position(position), size(size), color(color), type(type), layer(layer), health(1) {}
+		BlockConfig(Vector2 position, Vector2 size, Color color, Component::BlockType type, Component::GhostLayer layer, Utils::Notes hitSound)
+			: position(position), size(size), color(color), type(type), layer(layer), hitSound(hitSound), health(1) {}
 	};
 
 	class BlockConfigFactory
@@ -40,11 +43,12 @@ namespace Entity {
 		Vector2 defaultSize = { 100.0f, 50.0f };
 		Vector2 position = { 0.0f, 0.0f };
 		Component::GhostLayer layer = Component::GhostLayer::REAL;
-		Component::BlockType type = Component::BlockType::NORMAL;
+		Component::BlockType type = Component::BlockType::WALL;
+		Utils::Notes hitSound = Utils::Notes::C3;
 		Color color = LIGHTGRAY;
 	public:
 		BlockConfig	createConfig(){
-			return BlockConfig(position, defaultSize, color, type, layer);
+			return BlockConfig(position, defaultSize, color, type, layer, hitSound);
 		}
 		void setPosition(Vector2 pos) { position = pos; }
 		void setType(Component::BlockType type) { 
@@ -66,6 +70,9 @@ namespace Entity {
 			}
 		}
 		void setLayer(Component::GhostLayer layer) { this->layer = layer; }
+		void setSound(Utils::Notes hitSound) { this->hitSound = hitSound; }
+		Utils::Notes& getSound() { return hitSound; }
+		Component::BlockType& getType() { return type; }
 		void randomPosition(float minX, float maxX, float minY, float maxY)
 		{
 			position.x = Utils::random(minX, maxX);

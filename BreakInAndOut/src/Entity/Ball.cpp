@@ -9,6 +9,7 @@ namespace Entity{
 		ball.addComponent<Component::Position>(position);
 		ball.addComponent<Component::Velocity>(velocity);
 		ball.addComponent<Component::CircleShape>(radius);
+		ball.addComponent<Component::Displacement>(position);
 		return ball;
 	}
 };

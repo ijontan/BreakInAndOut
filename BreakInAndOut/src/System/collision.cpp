@@ -31,7 +31,7 @@ static void damageBlock(Scene *scene, Component::BlockState& blockState, entt::e
 void System::collision(Scene* scene)
 {
 	// TODO:fix the hardcoded screen size
-	const auto width = GetScreenWidth();
+	const auto width = GetScreenWidth() - 400;
 	const auto height = GetScreenHeight();
 
 	const auto ballView = scene->registry.view<Component::Position, Component::CircleShape, Component::Velocity>();
@@ -47,9 +47,13 @@ void System::collision(Scene* scene)
 		{
 			ballVelocity.x *= -1.0f;
 		}
-		if ((ballPos.y < 0 && ballVelocity.y < 0) || (ballPos.y > height && ballVelocity.y > 0))
+		if (ballPos.y < 0 && ballVelocity.y < 0)
 		{
 			ballVelocity.y *= -1.0f;
+		}
+		if (ballPos.y > height && ballVelocity.y > 0)
+		{
+			scene->registry.destroy(ballEntity);
 		}
 
 		bool breakLoop = false;
@@ -82,6 +86,7 @@ void System::collision(Scene* scene)
 				scene->registry.destroy(ballEntity);
 				break;
 			}
+			scene->sounds.playSound(blockState.hitSound);
 		}
 	}
 }

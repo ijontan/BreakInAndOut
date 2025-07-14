@@ -35,7 +35,6 @@ namespace Utils
 			{
 				if (block == selectedBlock.value())
 				{
-					std::cout << "Updating block position at index: " << index << std::endl;
 					level.updateBlockConfigPosition(index, pos);
 					break;
 				}
@@ -43,6 +42,11 @@ namespace Utils
 			}
 		}
 		blockConfigFactory.setPosition(pos);
+	}
+
+	void Editor::setHitSound(Utils::Notes hitSound)
+	{
+		blockConfigFactory.setSound(hitSound);
 	}
 
 	void Editor::createBlock(Scene* scene)
@@ -57,6 +61,7 @@ namespace Utils
 		selectedBlock.emplace(block);
 		blocks.push_back(block);
 		level.addBlockConfig(config);
+		scene->sounds.playSound(config.hitSound);
 	}
 
 	void Editor::selectBlock(Entity::Entity entity) 
@@ -92,5 +97,25 @@ namespace Utils
 	{
 		level.saveFile();
 		std::cout << "Level saved successfully." << std::endl;
+	}
+
+	void Editor::updateName(const std::string& updatedName)
+	{
+		level.updateName(updatedName);
+	}
+
+	std::string& Editor::getLevelName() 
+	{
+		return level.getName();
+	}
+
+	Utils::Notes& Editor::getHitSound()
+	{
+		return blockConfigFactory.getSound();
+	}
+
+	Component::BlockType& Editor::getBlockType()
+	{
+		return blockConfigFactory.getType();
 	}
 }

@@ -7,6 +7,7 @@ namespace Entity {
 		Entity textEntity = scene->createEntity();
 		textEntity.addComponent<Component::Position>(position);
 		textEntity.addComponent<Component::Text>(position, text, color, fontSize);
+		textEntity.addComponent<Component::Displacement>(position);
 		return textEntity;
 	}
 }

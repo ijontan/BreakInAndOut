@@ -2,6 +2,7 @@
 
 #include "../utils/bezier.hpp"
 #include "../utils/masking.hpp"
+#include "../utils/Sounds.hpp"
 
 #include <cmath>
 #include <algorithm>
@@ -32,14 +33,15 @@ namespace Component
 	{
 		BlockType type = NORMAL;
 		GhostLayer layer = REAL;
+		Utils::Notes hitSound = Utils::Notes::C3;
 		unsigned char targetOpacity = 255;
 		unsigned char startOpacity = 255;
 		float t = 1.0f;
 		int health = 1;
 
 
-		BlockState(BlockType type, GhostLayer layer, int health = 1)
-			: type(type), layer(layer), targetOpacity(255), startOpacity(255), t(1.0f), health(health) {
+		BlockState(BlockType type, GhostLayer layer, Utils::Notes hitSound, int health = 1)
+			: type(type), layer(layer), hitSound(hitSound), targetOpacity(255), startOpacity(255), t(1.0f), health(health) {
 		}
 
 		void step(float deltaTime)
@@ -59,7 +61,7 @@ namespace Component
 				int layerIndex = Utils::getBitIndex(layer);
 				int selectedLayer = Utils::getBitIndex(Utils::clearBit(mask, Component::GhostLayer::REAL));
 				auto diff = std::abs(layerIndex - selectedLayer);
-				targetOpacity = std::clamp(70 - diff * 20, 0, 255);
+				targetOpacity = static_cast<unsigned char>(std::clamp(70 - diff * 20, 0, 255));
 			}
 			else
 				targetOpacity = 255;

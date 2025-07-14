@@ -12,7 +12,7 @@ int main(void)
     SetTargetFPS(60);
 
 	Scene *scene = new Scene();
-    while (!WindowShouldClose())
+    while (!WindowShouldClose() && !scene->shouldClose)
         scene->render();
     delete scene;
 

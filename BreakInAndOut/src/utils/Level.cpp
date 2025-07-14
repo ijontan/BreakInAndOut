@@ -1,6 +1,25 @@
 #include "../../include/utils/Level.hpp"
 #include <fstream>
+#include <cstdio>
 #include <iostream>
+#include <filesystem>
+
+static void createDir(char const* path)
+{
+	std::filesystem::path customLevelPath = path;
+	try {
+		if (std::filesystem::create_directories(customLevelPath))
+			std::cout << "created directory: " <<  path << std::endl;
+		else 
+			std::cout << "failed to create directory: " << path << std::endl;
+	}
+	catch (const std::filesystem::filesystem_error& e) {
+		std::cerr << "Filesystem error: " << e.what() << std::endl;
+	}
+	catch (const std::exception& e) {
+		std::cerr << "error: " << e.what() << std::endl;
+	}
+}
 
 namespace Utils {
 	void Level::addBlockConfig(const Entity::BlockConfig& blockConfig)
@@ -20,8 +39,6 @@ namespace Utils {
 		if (index < 0 || index >= blocks.size())
 			return;
 		blocks[index].position = position;
-		std::cout << "Block config updated at index: " << index << " with position: (" 
-			<< position.x << ", " << position.y << ")" << std::endl;
 	}
 
 	void Level::removeBlockConfig(int index)
@@ -29,7 +46,6 @@ namespace Utils {
 		if (index < 0 || index >= blocks.size())
 			return;
 		blocks.erase(blocks.begin() + index);
-		std::cout << "Block config removed at index: " << index << std::endl;
 	}
 
 	std::vector<Entity::Entity> Level::setupLevel(Scene *scene)
@@ -55,7 +71,12 @@ namespace Utils {
 	}
 
 	void Level::loadFile() {
-		std::ifstream file(fileName, std::ios::binary);
+		if (fileName.empty())
+			return;
+		const std::string path = isCustom ? CUSTOM_LEVEL_PATH : LEVEL_PATH;
+		createDir(path.c_str());
+
+		std::ifstream file(path + fileName + LEVEL_FILE_EXTENSION, std::ios::binary);
 		if (!file.is_open())
 			return;
 
@@ -66,9 +87,20 @@ namespace Utils {
 		file.read(reinterpret_cast<char*>(blocks.data()), blockCount * sizeof(Entity::BlockConfig));
 		file.close();
 	}
+
 	void Level::saveFile()
 	{
-		std::ofstream file(fileName, std::ios::binary);
+		const std::string path = isCustom ? CUSTOM_LEVEL_PATH : LEVEL_PATH;
+		createDir(path.c_str());
+
+		if (newName.has_value())
+		{
+			std::remove(fileName.c_str());
+			fileName = newName.value();
+			newName.reset();
+		}
+
+		std::ofstream file(path + fileName + LEVEL_FILE_EXTENSION, std::ios::binary);
 		if (!file.is_open())
 			return;
 
@@ -76,5 +108,15 @@ namespace Utils {
 		file.write(reinterpret_cast<const char*>(&blockCount), sizeof(blockCount));
 		file.write(reinterpret_cast<const char*>(blocks.data()), blockCount * sizeof(Entity::BlockConfig));
 		file.close();
+	}
+
+	void Level::updateName(const std::string& updatedName)
+	{
+		newName = updatedName;
+	}
+
+	std::string& Level::getName()
+	{
+		return newName.has_value() ? newName.value() : fileName;
 	}
 }

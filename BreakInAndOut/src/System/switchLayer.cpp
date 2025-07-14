@@ -5,7 +5,7 @@
 void System::switchLayer(Scene* scene)
 {
 	bool switched = false;
-	if (IsKeyPressed(KEY_R) && scene->editor)
+	if (IsKeyPressed(KEY_ZERO) && scene->editor)
 	{
 		scene->mask = Component::GhostLayer::REAL;
 		switched = true;
@@ -53,12 +53,11 @@ void System::switchLayer(Scene* scene)
 	else
 		scene->editor->setLayer(static_cast<Component::GhostLayer>(scene->mask));
 
-	const auto view = scene->registry.view<Component::BlockState, Component::RectangleShape>();
+	const auto view = scene->registry.view<Component::BlockState>();
 
 	for (const auto& entity : view)
 	{
 		Component::BlockState& blockState = view.get<Component::BlockState>(entity);
-		const Component::RectangleShape& rectangleShape = view.get<Component::RectangleShape>(entity);
 		const auto newStartOpacity = static_cast<unsigned char>(Utils::linearInterpolation(blockState.startOpacity, blockState.targetOpacity, blockState.t));
 		blockState.setColorTransition(scene->mask, newStartOpacity);
 	}

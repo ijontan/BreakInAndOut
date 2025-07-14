@@ -6,6 +6,7 @@ namespace Entity {
 	{
 		Entity panel = scene->createEntity();
 		panel.addComponent<Component::Container>(position, size, color);
+		panel.addComponent<Component::Displacement>(position);
 		return panel;
 	}
 }

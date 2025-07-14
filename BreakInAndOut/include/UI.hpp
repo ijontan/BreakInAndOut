@@ -2,5 +2,8 @@
 #include "Scene.hpp"
 
 namespace UI {
-	void setupMenu(Scene* scene);
+	void editPanel(Scene* scene);
+	void mainMenu(Scene* scene);
+	void levelPanel(Scene* scene);
+	void selectCustomLevel(Scene* scene);
 }

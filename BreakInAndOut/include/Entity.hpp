@@ -11,19 +11,19 @@ namespace Entity {
 		}
 
 		template <typename T, typename... Arg>
-		T& addComponent(Arg &&...args)
+		T& addComponent(Arg &&...args) const
 		{
 			return scene->registry.emplace<T>(entityHandle, std::forward<Arg>(args)...);
 		}
 
 		template <typename T>
-		T& getComponent()
+		T& getComponent() const 
 		{
 			return scene->registry.get<T>(entityHandle);
 		}
 
 		template <typename T>
-		void removeComponent()
+		void removeComponent() const 
 		{
 			return scene->registry.remove<T>(entityHandle);
 		}

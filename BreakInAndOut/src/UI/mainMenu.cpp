@@ -4,8 +4,8 @@
 void UI::mainMenu(Scene* scene) 
 {
 	
-	const float screenWidth = GetScreenWidth();
-	const float screenHeight = GetScreenHeight();
+	const float screenWidth = static_cast<float>(GetScreenWidth());
+	const float screenHeight = static_cast<float>(GetScreenHeight());
 
 	{
 		const std::string text = "BreakiN";

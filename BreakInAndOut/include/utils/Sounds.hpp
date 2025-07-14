@@ -122,6 +122,8 @@ namespace Utils {
 				return "A4";
 			case Utils::Notes::B4:
 				return "B4";
+			default:
+				return "";
 			}
 		}
 	};

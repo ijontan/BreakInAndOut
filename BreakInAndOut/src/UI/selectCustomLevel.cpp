@@ -25,8 +25,8 @@ static void createDir(char const* path)
 
 void UI::selectCustomLevel(Scene* scene) {
 
-	const float screenWidth = GetScreenWidth();
-	const float screenHeight = GetScreenHeight();
+	const float screenWidth = static_cast<float>(GetScreenWidth());
+	const float screenHeight = static_cast<float>(GetScreenHeight());
 
 	const Vector2 panePosition = { screenWidth  - 400.0f, 0.0f };
 	const Vector2 panePadding = { 50.0f, 50.0f };
@@ -48,7 +48,7 @@ void UI::selectCustomLevel(Scene* scene) {
 		{
 			const Vector2 textPosition = { position.x + 10, position.y + 10 };
 			const Color color = WHITE;
-			const float fontSize = 30;
+			const int fontSize = 30;
 			Entity::createText(scene, textPosition, fileName, color, fontSize);
 		}
 		{

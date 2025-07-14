@@ -115,7 +115,7 @@ static void generateTutorialText(Scene* scene, const std::string& fileName)
 
 	const Vector2 position = { 50.0f, 50.0f};
 	const Color color = WHITE;
-	const float fontSize = 30;
+	const int fontSize = 30;
 	Entity::createText(scene, position, text, color, fontSize);
 }
 
@@ -123,7 +123,7 @@ void Scene::gotoLevel(const std::string fileName, bool isCustom)
 {
 	unloadingPage = true;
 	loadPageCallBack = [this, fileName, isCustom]() {
-		const float screenWidth = GetScreenWidth();
+		const float screenWidth = static_cast<float>(GetScreenWidth());
 		registry.clear();
 		clean();
 		std::cout << "Playing level: " << fileName << ", isCustom: " << isCustom << std::endl;

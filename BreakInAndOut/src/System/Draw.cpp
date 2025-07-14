@@ -16,11 +16,11 @@ static void drawArrow(Scene* scene)
 			continue;
 		for (int i = 1; i < 8; ++i)
 		{
-			const float distance = i * 15;
+			const float distance = i * 15.0f;
 			const Vector2 direction = { paddleState.aimDirection.x * distance, paddleState.aimDirection.y * distance };
 			const Vector2 finalPos = { position.x + 100 + direction.x, position.y - 11 + direction.y };
 			const float size = 2;
-			DrawCircle(finalPos.x, finalPos.y, size, WHITE);
+			DrawCircle(static_cast<int>(finalPos.x), static_cast<int>(finalPos.y), size, WHITE);
 		}
 	}
 }

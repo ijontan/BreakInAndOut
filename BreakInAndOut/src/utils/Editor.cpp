@@ -27,7 +27,10 @@ namespace Utils
 		{
 			const auto& rectangleShape = selectedBlock->getComponent<Component::RectangleShape>();
 			pos = { pos.x - rectangleShape.size.x / 2, pos.y - rectangleShape.size.y / 2 };
-			pos = { static_cast<float>(Utils::snapToNearest(pos.x, 10)), static_cast<float>(Utils::snapToNearest(pos.y, 10)) };
+			pos = { 
+				static_cast<float>(Utils::snapToNearest(static_cast<int>(pos.x), 10)), 
+				static_cast<float>(Utils::snapToNearest(static_cast<int>(pos.y), 10)) 
+			};
 			selectedBlock->getComponent<Component::Position>().position = pos;
 			selectedBlock->getComponent<Component::MouseHitBox>().position = pos;
 			int index = 0;

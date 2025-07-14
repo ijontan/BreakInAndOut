@@ -13,8 +13,8 @@ namespace Component {
 
 		Displacement(const Vector2& position)
 		{
-			const float screenWidth = GetScreenWidth();
-			const float screenheight = GetScreenHeight();
+			const float screenWidth = static_cast<float>(GetScreenWidth());
+			const float screenheight = static_cast<float>(GetScreenHeight());
 			const float magnitude = std::sqrt(screenWidth * screenWidth + screenheight * screenheight);
 			const Vector2 direction = Vector2Normalize(Vector2{ position.x - screenWidth * 0.5f, position.y - screenheight * 0.5f });
 

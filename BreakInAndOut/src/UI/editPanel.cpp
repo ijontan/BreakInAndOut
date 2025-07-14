@@ -6,8 +6,8 @@
 
 void UI::editPanel(Scene* scene) {
 
-	const float screenWidth = GetScreenWidth();
-	const float screenHeight = GetScreenHeight();
+	const float screenWidth = static_cast<float>(GetScreenWidth());
+	const float screenHeight = static_cast<float>(GetScreenHeight());
 
 	const Vector2 panePosition = { screenWidth  - 400.0f, 0.0f };
 	const Vector2 panePadding = { 50.0f, 50.0f };
@@ -19,7 +19,7 @@ void UI::editPanel(Scene* scene) {
 		const Vector2 position = { panePosition.x + panePadding.x, panePosition.y + panePadding.y + yPosition};
 		const std::string text = "Editing level:";
 		const Color color = BLACK;
-		const float fontSize = 30;
+		const int fontSize = 30;
 		Entity::createText(scene, position, text, color, fontSize);
 		yPosition += fontSize;
 	}
@@ -32,7 +32,7 @@ void UI::editPanel(Scene* scene) {
 		yPosition += buttonSize.y;
 		const std::string text = "(empty)";
 		const Color textColor = BLACK;
-		const float fontSize = 30;
+		const int fontSize = 30;
 		const Vector2 padding = { 5.0f, 3.0f };
 		const Color boxColor = WHITE;
 		const auto onClick = [scene]() {
@@ -91,7 +91,7 @@ void UI::editPanel(Scene* scene) {
 		const Vector2 position = { panePosition.x + panePadding.x, panePosition.y + panePadding.y + yPosition};
 		const std::string text = "Select Sound:";
 		const Color color = BLACK;
-		const float fontSize = 20;
+		const int fontSize = 20;
 		Entity::createText(scene, position, text, color, fontSize);
 		yPosition += fontSize;
 	}
@@ -161,7 +161,7 @@ void UI::editPanel(Scene* scene) {
 		const Vector2 position = { panePosition.x + panePadding.x, panePosition.y + panePadding.y + yPosition};
 		const std::string text = "Layer:";
 		const Color color = BLACK;
-		const float fontSize = 20;
+		const int fontSize = 20;
 		Entity::createText(scene, position, text, color, fontSize);
 		yPosition += fontSize;
 	}
@@ -196,7 +196,7 @@ void UI::editPanel(Scene* scene) {
 		const Vector2 position = { panePosition.x + panePadding.x, panePosition.y + panePadding.y + yPosition};
 		const std::string text = "Select Block Type:";
 		const Color color = BLACK;
-		const float fontSize = 20;
+		const int fontSize = 20;
 		Entity::createText(scene, position, text, color, fontSize);
 		yPosition += fontSize;
 	}
@@ -301,7 +301,7 @@ void UI::editPanel(Scene* scene) {
 		const Vector2 position = { panePosition.x + panePadding.x, panePosition.y + panePadding.y + yPosition};
 		const std::string text = "Total no. of breakable:";
 		const Color color = BLACK;
-		const float fontSize = 20;
+		const int fontSize = 20;
 		Entity::createText(scene, position, text, color, fontSize);
 		yPosition += fontSize;
 	}
@@ -310,7 +310,7 @@ void UI::editPanel(Scene* scene) {
 		const Vector2 position = { panePosition.x + panePadding.x, panePosition.y + panePadding.y + yPosition};
 		const std::string text = "0";
 		const Color color = BLACK;
-		const float fontSize = 100;
+		const int fontSize = 100;
 		Entity::Entity displayText = Entity::createText(scene, position, text, color, fontSize);
 		displayText.addComponent<Component::Watcher>(Component::Watcher{
 			[scene, displayText]() {
